@@ -1,0 +1,21 @@
+{
+  "name": "project2",
+  "version": "1.0.0",
+  "description": "My Second Project",
+  "keywords": [],
+  "homepage": "https://github.com/johnbrightagbons/cse341#readme",
+  "bugs": {
+    "url": "https://github.com/johnbrightagbons/cse341/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnbrightagbons/cse341_project2.git"
+  },
+  "license": "ISC",
+  "author": "John Bright Agbons",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
