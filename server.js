@@ -1,11 +1,14 @@
 // Declare a constant variable named express and set it equal to require('express').
 const express = require('express');
 
+// Create a constant variable named mongodb and set it equal to require('./data/database').
+const mongodb = require('./data/database');
+
 // Declare a constant variable named app and set it equal to express().
 const app = express();
 
 
-// CORS Middleware (Fixed Syntax)
+// CORS Middleware 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Z-key');
@@ -16,9 +19,6 @@ app.use((req, res, next) => {
 
 // Declare a constant variable named bodyParser and set it equal to require('body-parser').
 const bodyParser = require('body-parser');
-
-// Declare a constant variable called mongodb and set it equal to require from database in data folder.
-const mongodb = require('./data/database');
 
 
 // Declare a port variable and set it equal to 3000 to run the app
