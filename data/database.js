@@ -7,6 +7,8 @@ const MongoClient = require('mongodb').MongoClient;
 // Declare a variable named database
 let database;
 
+
+// Function to initialize the database connection
 const initDb = (callback) => {
     if (database) {
         console.log("Database is already initialized");
@@ -14,9 +16,9 @@ const initDb = (callback) => {
     }
 
     // Connect to the database using the connection string
-    MongoClient.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    MongoClient.connect(process.env.MONGODB_URI)
         .then((client) => { // FIXED the destructuring error
-            database = client.db(); // Ensure you access the database, not just the client
+            database = client; // Ensure you access the database, not just the client
             console.log("Database initialized successfully");
             callback(null, database);
         })
@@ -30,8 +32,8 @@ const getDatabase = () => {
     if (!database) {
         throw new Error('Database is not initialized');
     }
-    return database;
-};
+    return database
+}
 
 
 
