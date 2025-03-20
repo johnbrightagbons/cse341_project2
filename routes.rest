@@ -6,13 +6,13 @@ http://localhost:5000/students
 ### GET student by ID
 http://localhost:5000/students/67d494fcc68dff30ed05145a
 
-### POST Create a student
+### 
 http://localhost:5000/students HTTP/1.1
 Content-Type: application/json
 
 {   
-    "name": "",
-    "email": "",
+    "name": "David",
+    "email": "Jose@gmail.com",
     "age": 20,
     "phone": "09087654321",
     "address": "35, Jara Street",

@@ -63,18 +63,21 @@ const createStudent = async (req, res) => {
 
 // Update a student
 const updateStudent = async (req, res) => {
+    if (!req.body.name || !req.body.email) {
+        return res.status(400).json({ message: "Name and email are required" });
+    }
     const studentId = new ObjectId(req.params.id);
     const student = {
-        name : req.body.name,
-        email : req.body.email,
-        age : req.body.age,
-        phone : req.body.phone,
-        address : req.body.address,
-        course : req.body.course,
-        gpa : req.body.gpa
-    }
+        name: req.body.name,
+        email: req.body.email,
+        age: req.body.age,
+        phone: req.body.phone,
+        address: req.body.address,
+        course: req.body.course,
+        gpa: req.body.gpa
+    };
     const result = await mongodb.getDatabase().db().collection('students').updateOne({ _id: studentId }, { $set: student });
-    if (result.modifiedCount >0) {
+    if (result.modifiedCount > 0) {
         res.status(200).json({ message: "Student updated successfully" });
     } else {
         res.status(500).send("An error occurred while updating a student");

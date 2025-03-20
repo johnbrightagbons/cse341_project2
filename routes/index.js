@@ -13,5 +13,9 @@ router.use('/students', require('./students'));
 // Declare the router for teachers
 router.use('/teachers', require('./teachers'));
 
+// Declare the router swagger
+router.use('/', require('./swagger'));
+
+
 // Export the router
 module.exports = router;
