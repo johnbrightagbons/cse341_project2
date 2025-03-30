@@ -5,7 +5,8 @@ const { ObjectId } = require('mongodb');
 // Get all teachers
 const getAllTeachers = async (req, res) => {
     try {
-        const result = await mongodb.getDatabase().db().collection('teachers').find();
+        const result = await mongodb.getDatabase().collection('teachers').find();
+
         const teachers = await result.toArray();
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(teachers);
@@ -23,7 +24,7 @@ const getSingleTeacher = async (req, res) => {
         }
 
         const teacherId = new ObjectId(req.params.id);
-        const teacher = await mongodb.getDatabase().db().collection('teachers').findOne({ _id: teacherId });
+        const teacher = await mongodb.getDatabase().collection('teachers').findOne({ _id: teacherId });
 
         if (!teacher) {
             return res.status(404).json({ message: "Teacher not found" });
@@ -89,7 +90,7 @@ const updateTeacher = async (req, res) => {
             age: req.body.age
         };
 
-        const result = await mongodb.getDatabase().db().collection('teachers').updateOne(
+        const result = await mongodb.getDatabase().collection('teachers').updateOne(
             { _id: teacherId },
             { $set: teacher }
         );
@@ -113,7 +114,7 @@ const deleteTeacher = async (req, res) => {
         }
 
         const teacherId = new ObjectId(req.params.id);
-        const result = await mongodb.getDatabase().db().collection('teachers').deleteOne({ _id: teacherId });
+        const result =await mongodb.getDatabase().collection('teachers').deleteOne({ _id: teacherId });
 
         if (result.deletedCount > 0) {
             res.status(200).json({ message: 'Teacher deleted successfully' });

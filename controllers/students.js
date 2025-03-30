@@ -4,13 +4,18 @@ const { ObjectId } = require('mongodb');
 // Get all students
 const getAllStudents = async (req, res) => {
     try {
-        const result = await mongodb.getDatabase().db().collection('students').find();
+        console.log("Connecting to the database..."); // Debugging log
+        const db = mongodb.getDatabase(); // Get the database object directly
+        console.log("Fetching students collection..."); // Debugging log
+        const result = await db.collection('students').find(); // Use the database object directly
         const students = await result.toArray();
+
+        console.log("Students fetched successfully:", students); // Debugging log
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(students);
     } catch (err) {
-        console.error("Error fetching students:", err);
-        res.status(500).json({ message: "An error occurred while getting students" });
+        console.error("Error fetching students:", err); // Log the error for debugging
+        res.status(500).json({ message: "An error occurred while getting students" }); // Ensure the error message is specific to students
     }
 };
 
@@ -21,7 +26,11 @@ const getSingleStudent = async (req, res) => {
             return res.status(400).json({ message: "Invalid student ID format" });
         }
         const studentId = new ObjectId(req.params.id);
-        const student = await mongodb.getDatabase().db().collection('students').findOne({ _id: studentId });
+        console.log("Querying student with ID:", studentId); // Debugging log
+        const student = await mongodb.getDatabase().collection('students').findOne({ _id: studentId });
+        console.log("Fetched student:", student); // Debugging log
+
+
 
         if (!student) {
             return res.status(404).json({ message: "Student not found" });
@@ -52,7 +61,8 @@ const createStudent = async (req, res) => {
     };
 
     try {
-        const result = await mongodb.getDatabase().db().collection('students').insertOne(student);
+        const result = await mongodb.getDatabase().collection('students').insertOne(student);
+
 
         if (result.acknowledged) {
             res.status(201).json({ message: 'Student created successfully', id: result.insertedId });
@@ -87,7 +97,7 @@ const updateStudent = async (req, res) => {
             gpa: req.body.gpa
         };
 
-        const result = await mongodb.getDatabase().db().collection('students').updateOne(
+        const result = await mongodb.getDatabase().collection('students').updateOne(
             { _id: studentId },
             { $set: student }
         );
@@ -111,7 +121,7 @@ const deleteStudent = async (req, res) => {
         }
 
         const studentId = new ObjectId(req.params.id);
-        const result = await mongodb.getDatabase().db().collection('students').deleteOne({ _id: studentId });
+        const result = await mongodb.getDatabase().collection('students').deleteOne({ _id: studentId });
 
         if (result.deletedCount > 0) {
             res.status(200).json({ message: "Student deleted successfully" });

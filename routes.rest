@@ -4,7 +4,7 @@ http://localhost:5000
 http://localhost:5000/students
 
 ### GET student by ID
-http://localhost:5000/students/67d494fcc68dff30ed05145a
+http://localhost:5000/students/67d49629c68dff30ed05145b
 
 ### 
 http://localhost:5000/students HTTP/1.1
@@ -28,7 +28,7 @@ Content-Type: application/json
 {
     "name": "Angel John Doe",
     "email": "doesjohn@gmail.com",
-    "age": 26,
+    "age": 27,
     "phone": "09014678902",
     "address": "5, Jara Street",
     "course": "cse 125",
@@ -50,7 +50,7 @@ http://localhost:5000/teachers
 
 // Get Teacher by ID
 ###    
-http://localhost:5000/teachers/67d49a3dc68dff30ed051461
+http://localhost:5000/teachers/67d497c9c68dff30ed05145d
 
 
 // Create a Teacher

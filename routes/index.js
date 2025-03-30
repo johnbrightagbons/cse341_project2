@@ -7,7 +7,6 @@ router.get('/', (req, res) => {
     res.send('Welcome to a School API of Students and Teachers');
 });
 
-
 // Declare the router for students
 router.use('/students', require('./students'));
 
@@ -16,9 +15,6 @@ router.use('/teachers', require('./teachers'));
 
 // Declare the router swagger
 router.use('/', require('./swagger'));
-
-
-
 
 // Route for login
 router.get("/login", passport.authenticate("github", { scope: ["user:email"] }));
@@ -51,9 +47,6 @@ router.get("/logout", function (req, res, next) {
         res.send(`${username}, you are logged out`); // Display the logout message
     });
 });
-
-
-
 
 // Export the router
 module.exports = router;
