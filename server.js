@@ -2,6 +2,7 @@
 const express = require('express');
 const session = require('express-session'); 
 const passport = require('passport'); 
+const cors = require("cors");
 
 require('dotenv').config(); // Load environment variables from .env file
 
@@ -19,27 +20,25 @@ const mongodb = require('./data/database');
 // Declare a port variable and set it equal to 3000 to run the app
 const port =process.env.PORT || 5000;
 
-app.use(bodyParser.json());
+app.use(bodyParser.json())
+    .use(session({
+        secret: 'secret',
+        resave: false,
+        saveUninitialized: true
+    }))
+    .use(passport.initialize())
+    .use(passport.session());
 
-// Express-session setup
-app.use(session({
-    secret: "secret",
-    resave: false,
-    saveUninitialized: true,
-}));
+// Configure CORS options
+const corsOptions = {
+    origin: '*', // Allow all origins
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Requested-With', 'Accept'], // Allowed headers
+    optionsSuccessStatus: 200 // For legacy browsers
+};
 
-
-// CORS Middleware 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Z-key');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    next();
-});
-
-// Passport setup
-app.use(passport.initialize());
-app.use(passport.session());
+// Enable CORS with the configured options
+app.use(cors(corsOptions));
 
 // Routes setup
 const routes = require("./routes/index.js");
@@ -62,7 +61,6 @@ app.get(
         });
     }
 );
-
 
 // Connect to the database using mongodb function
 mongodb.initDb((err) => {

@@ -17,11 +17,12 @@ const initDb = (callback) => {
 
     // Connect to the database using the connection string
     MongoClient.connect(process.env.MONGODB_URI)
-        .then((client) => { // FIXED the destructuring error
-            database = client; // Ensure you access the database, not just the client
-            console.log("Database initialized successfully");
-            callback(null, database);
-        })
+    .then((client) => {
+        database = client.db(); // Corrected to access the database
+        console.log("Database initialized successfully");
+        callback(null, database);
+    })
+
         .catch((err) => {
             console.error("Database connection failed", err);
             callback(err);
