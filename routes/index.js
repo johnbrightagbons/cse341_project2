@@ -24,7 +24,10 @@ router.get(
     "/github/callback",
     passport.authenticate("github", { failureRedirect: "/" }),
     (req, res) => {
+        req.session.user =req.user;
+        req.session.save(() => {
         res.redirect("/profile"); // Redirect to profile after successful login
+    })
     }
 );
 

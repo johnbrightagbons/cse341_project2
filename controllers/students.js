@@ -61,7 +61,11 @@ const createStudent = async (req, res) => {
     };
 
     try {
-        const result = await mongodb.getDatabase().collection('students').insertOne(student);
+    if (!req.isAuthenticated()) {
+        console.log('Unauthorized access attempt to create a student:', req.body); // Log unauthorized access
+    }
+    const result = await mongodb.getDatabase().collection('students').insertOne(student);
+
 
 
         if (result.acknowledged) {
@@ -97,7 +101,11 @@ const updateStudent = async (req, res) => {
             gpa: req.body.gpa
         };
 
+        if (!req.isAuthenticated()) {
+            console.log('Unauthorized access attempt to update student with ID:', studentId); // Log unauthorized access
+        }
         const result = await mongodb.getDatabase().collection('students').updateOne(
+
             { _id: studentId },
             { $set: student }
         );
@@ -121,7 +129,11 @@ const deleteStudent = async (req, res) => {
         }
 
         const studentId = new ObjectId(req.params.id);
+        if (!req.isAuthenticated()) {
+            console.log('Unauthorized access attempt to delete student with ID:', studentId); // Log unauthorized access
+        }
         const result = await mongodb.getDatabase().collection('students').deleteOne({ _id: studentId });
+
 
         if (result.deletedCount > 0) {
             res.status(200).json({ message: "Student deleted successfully" });

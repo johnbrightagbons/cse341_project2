@@ -5,8 +5,8 @@ passport.serializeUser((user, done) => {
     done(null, user);
 });
 
-passport.deserializeUser((obj, done) => {
-    done(null, obj);
+passport.deserializeUser((user, done) => {
+    done(null, user);
 });
 
 passport.use(new GitHubStrategy({
@@ -15,6 +15,7 @@ passport.use(new GitHubStrategy({
     callbackURL: process.env.GITHUB_CALLBACK_URL
 },
 (accessToken, refreshToken, profile, done) => {
+    console.log('GitHub Profile:', profile); // Log the profile information
     return done(null, profile);
 }));
 
