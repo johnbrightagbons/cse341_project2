@@ -31,23 +31,22 @@ app
   .use(passport.session())
 
   .use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "*");
     res.setHeader(
       "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept, Z-Key, Authorization"
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     );
     res.setHeader(
       "Access-Control-Allow-Methods",
-      "POST, GET, PUT, PATCH, OPTIONS, DELETE"
+      "GET, POST, PUT, DELETE, OPTIONS"
     );
     next();
   })
   .use(
     cors({
-      methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+      methods: ["GET", "POST", "UPDATE", "PUT", "DELETE", "PATCH"],
     })
-  )
-  .use(cors({ origin: "https://cse341-project2-qpyu.onrender.com" }));
+  );
 
 //app.get("/", (req, res) => {
 //res.send("Welcome to a School API of Students and Teachers");
