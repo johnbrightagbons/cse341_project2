@@ -47,7 +47,7 @@ app
       methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
     })
   )
-  .use(cors({ origin: "*" }));
+  .use(cors({ origin: "https://cse341-project2-qpyu.onrender.com" }));
 
 //app.get("/", (req, res) => {
 //res.send("Welcome to a School API of Students and Teachers");
