@@ -47,7 +47,7 @@ app
       methods: ["GET", "POST", "UPDATE", "PUT", "DELETE", "PATCH"],
     })
   );
-
+app.use("/", require("./routes/index.js")); // Use the index route for all routes
 //app.get("/", (req, res) => {
 //res.send("Welcome to a School API of Students and Teachers");
 //});
@@ -84,7 +84,6 @@ app.get("/", (req, res) => {
       : "Logged Out"
   );
 });
-app.use("/", require("./routes/index.js")); // Use the index route for all routes
 
 app.get(
   "/github/callback",
