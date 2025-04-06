@@ -44,7 +44,7 @@ app
   })
   .use(
     cors({
-      methods: ["GET", "POST", "UPDATE", "PUT", "DELETE", "PATCH"],
+      methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     })
   );
 
