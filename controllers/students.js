@@ -138,6 +138,7 @@ const deleteStudent = async (req, res) => {
       return res.status(400).json({ message: "Invalid student ID format" });
     }
 
+    // Ignore the request body for DELETE operations
     const studentId = new ObjectId(req.params.id);
     if (!req.session.user) {
       console.log(

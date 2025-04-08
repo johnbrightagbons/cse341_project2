@@ -135,6 +135,7 @@ const deleteTeacher = async (req, res) => {
       return res.status(400).json({ message: "Invalid teacher ID format" });
     }
 
+    // Ignore the request body for DELETE operations
     const teacherId = new ObjectId(req.params.id);
     const result = await mongodb
       .getDatabase()
