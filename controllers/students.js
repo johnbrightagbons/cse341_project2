@@ -133,7 +133,6 @@ const updateStudent = async (req, res) => {
 
 // Delete a student by ID
 const deleteStudent = async (req, res) => {
-  const studentId = new ObjectId(req.params.id);
   try {
     if (!ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: "Invalid student ID format" });
