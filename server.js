@@ -81,7 +81,7 @@ app.get("/", (req, res) => {
   res.send(
     req.session.user !== undefined
       ? `Logged in as ${req.session.user.displayName}, Welcome to the School API`
-      : "You're Logged Out, Please Visit again"
+      : "You're Logged Out, Please Login"
   );
 });
 app.use("/", require("./routes/index.js")); // Use the index route for all routes
