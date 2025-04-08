@@ -81,7 +81,7 @@ app.get("/", (req, res) => {
   res.send(
     req.session.user !== undefined
       ? `Logged in as ${req.session.user.displayName}, Welcome to the School API`
-      : "Logged Out"
+      : "You're Logged Out, Please Visit again"
   );
 });
 app.use("/", require("./routes/index.js")); // Use the index route for all routes
@@ -89,8 +89,8 @@ app.use("/", require("./routes/index.js")); // Use the index route for all route
 app.get(
   "/github/callback",
   passport.authenticate("github", {
-    failureRedirect: "/api-docs",
-    session: false,
+    failureRedirect: "/login",
+    session: true,
   }),
   (req, res) => {
     req.session.user = req.user; // Store user information in session
