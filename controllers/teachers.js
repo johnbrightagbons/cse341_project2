@@ -131,11 +131,12 @@ const updateTeacher = async (req, res) => {
 // Delete teacher
 const deleteTeacher = async (req, res) => {
   try {
+    // Validate teacher ID format
     if (!ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: "Invalid teacher ID format" });
     }
 
-    // Ignore the request body for DELETE operations
+    // Proceed with deleting the teacher from the database
     const teacherId = new ObjectId(req.params.id);
     const result = await mongodb
       .getDatabase()
