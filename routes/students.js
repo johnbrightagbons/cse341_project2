@@ -19,12 +19,7 @@ router.put(
   isValidated,
   studentsController.updateStudent
 ); // Update a student
-router.delete(
-  "/:id",
-  isAuthenticated,
-  isValidated,
-  studentsController.deleteStudent
-); // Delete a student
+router.delete("/:id", isAuthenticated, studentsController.deleteStudent); // Delete a student
 
 // Export the router
 module.exports = router;
