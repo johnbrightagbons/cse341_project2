@@ -49,20 +49,16 @@ const getSingleTeacher = async (req, res) => {
 
 // Create Teacher
 const createTeacher = async (req, res) => {
-  if (!req.body.name || !req.body.department) {
-    return res
-      .status(400)
-      .json({ message: "Name and department are required" });
-  }
+  const { name, department, qualification, salary, courseAssigned, age } =
+    req.body;
 
-  console.log("Incoming request body:", req.body);
   const teacher = {
-    name: req.body.name,
-    department: req.body.department,
-    qualification: req.body.qualification,
-    salary: req.body.salary,
-    courseAssigned: req.body.courseAssigned,
-    age: req.body.age,
+    name,
+    department,
+    qualification,
+    salary: salary ? Number(salary) : undefined,
+    courseAssigned,
+    age: age ? Number(age) : undefined,
   };
 
   try {
@@ -71,7 +67,6 @@ const createTeacher = async (req, res) => {
       .db()
       .collection("teachers")
       .insertOne(teacher);
-    console.log("Database insert result:", result);
 
     if (result.acknowledged) {
       res.status(201).json({
