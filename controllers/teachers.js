@@ -52,6 +52,13 @@ const createTeacher = async (req, res) => {
   const { name, department, qualification, salary, courseAssigned, age } =
     req.body;
 
+  // Validate required fields
+  if (!name || !department || !qualification) {
+    return res
+      .status(400)
+      .json({ message: "Name, department, and qualification are required" });
+  }
+
   const teacher = {
     name,
     department,
@@ -64,7 +71,6 @@ const createTeacher = async (req, res) => {
   try {
     const result = await mongodb
       .getDatabase()
-      .db()
       .collection("teachers")
       .insertOne(teacher);
 

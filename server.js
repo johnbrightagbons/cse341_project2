@@ -4,7 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 require("dotenv").config(); // Load environment variables from .env file
 // Create a constant variable named mongodb and set it equal to require('./data/database').
-const mongodb = require("./data/database");
+const { initDb } = require("./data/database");
 const passport = require("passport"); // Load passport configuration
 const session = require("express-session"); // Load express-session for session management
 const GitHubStrategy = require("passport-github2").Strategy; // Load GitHub strategy for authentication
@@ -101,14 +101,14 @@ app.get(
   }
 );
 
-// Connect to the database using mongodb function
-mongodb.initDb((err) => {
+// Connect to the database using initDb function
+initDb((err) => {
   if (err) {
-    console.log(err);
+    console.error("Failed to connect to the database:", err);
+    process.exit(1);
   } else {
-    // Start the app,  a server that browsers can connect to
     app.listen(port, () => {
-      console.log(`Database is Listening and Node is Running on Port ${port}`);
+      console.log(`Server is running on port ${port}`);
     });
   }
 });
