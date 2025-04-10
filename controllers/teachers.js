@@ -53,10 +53,32 @@ const createTeacher = async (req, res) => {
     req.body;
 
   // Validate required fields
-  if (!name || !department || !qualification) {
+  if (!name || typeof name !== "string" || name.trim() === "") {
+    return res.status(400).json({ message: "Invalid or missing 'name' field" });
+  }
+  if (
+    !department ||
+    typeof department !== "string" ||
+    department.trim() === ""
+  ) {
     return res
       .status(400)
-      .json({ message: "Name, department, and qualification are required" });
+      .json({ message: "Invalid or missing 'department' field" });
+  }
+  if (
+    !qualification ||
+    typeof qualification !== "string" ||
+    qualification.trim() === ""
+  ) {
+    return res
+      .status(400)
+      .json({ message: "Invalid or missing 'qualification' field" });
+  }
+  if (salary && (isNaN(Number(salary)) || Number(salary) < 0)) {
+    return res.status(400).json({ message: "Invalid 'salary' field" });
+  }
+  if (age && (isNaN(Number(age)) || Number(age) <= 0)) {
+    return res.status(400).json({ message: "Invalid 'age' field" });
   }
 
   const teacher = {
@@ -64,7 +86,7 @@ const createTeacher = async (req, res) => {
     department,
     qualification,
     salary: salary ? Number(salary) : undefined,
-    courseAssigned,
+    courseAssigned: courseAssigned || undefined,
     age: age ? Number(age) : undefined,
   };
 

@@ -1,0 +1,27 @@
+components:
+  schemas:
+    Teacher:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "John Doe"
+        department:
+          type: string
+          example: "Mathematics"
+        qualification:
+          type: string
+          example: "PhD"
+        salary:
+          type: number
+          example: 50000
+        courseAssigned:
+          type: string
+          example: "Math 101"
+        age:
+          type: number
+          example: 40
+      required:
+        - name
+        - department
+        - qualification
