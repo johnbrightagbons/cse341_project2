@@ -46,7 +46,10 @@ app
     cors({
       methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     })
-  );
+  )
+  .use(cors()); // Allow all origins
+// Or restrict to specific origins
+// app.use(cors({ origin: "https://your-frontend-domain.com" }));
 
 //app.get("/", (req, res) => {
 //res.send("Welcome to a School API of Students and Teachers");

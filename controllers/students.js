@@ -131,23 +131,16 @@ const updateStudent = async (req, res) => {
   }
 };
 
-// Delete a student by ID
+// Delete student
 const deleteStudent = async (req, res) => {
   try {
+    // Validate student ID format
     if (!ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: "Invalid student ID format" });
     }
 
-    // Ignore the request body for DELETE operations
+    // Proceed with deleting the student from the database
     const studentId = new ObjectId(req.params.id);
-    if (!req.session.user) {
-      console.log(
-        "Unauthorized access attempt to delete student with ID:",
-        studentId
-      );
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-
     const result = await mongodb
       .getDatabase()
       .collection("students")
@@ -160,7 +153,9 @@ const deleteStudent = async (req, res) => {
     }
   } catch (error) {
     console.error("Error deleting student:", error);
-    res.status(500).json({ error: "Failed to delete student" });
+    res.status(500).json({
+      message: "An error occurred while deleting the student",
+    });
   }
 };
 
